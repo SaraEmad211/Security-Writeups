@@ -42,19 +42,19 @@ wiener:peter
 
 5. Replace the session cookie in the request with the normal user's session.
 
-6. Observe that the request returns:
+6. Modify the username parameter to your user:
+```
+username=wiener
+```
+
+7. Observe that the request returns:
 ```
 Unauthorized
 ```
 
-7. Change the HTTP method from:
+8. Change the HTTP method from:
 ```
 POST → GET
-```
-
-8. Modify the username parameter to your user:
-```
-username=wiener
 ```
 
 9. Send the request again.
