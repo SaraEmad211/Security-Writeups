@@ -2,9 +2,7 @@ import requests
 import base64
 import time
 
-# ============
-# الإعدادات
-# ============
+
 BASE_URL = "http://example.com"
 LOGIN_URL = f"{BASE_URL}/login"
 CREDENTIALS = {"username": "sara", "password": "1234"}
