@@ -1,18 +1,18 @@
-# 🔓 Method-Based Access Control Bypass
+#  Method-Based Access Control Bypass
 
-## 📌 Summary
+##  Summary
 The application enforces access control based on the HTTP method.  
 By modifying the request method, it is possible to bypass these restrictions and perform privileged actions as a non-administrative user.
 
 ---
 
-## 📌 Vulnerability Type
+##  Vulnerability Type
 - Broken Access Control
 - Method-Based Access Control Bypass
 
 ---
 
-## 📌 Affected Endpoint
+##  Affected Endpoint
 
 ```http
 POST /admin-roles
@@ -20,7 +20,7 @@ POST /admin-roles
 
 ---
 
-## 📌 Steps to Reproduce
+##  Steps to Reproduce
 
 1. Login as administrator:
 
@@ -61,7 +61,7 @@ POST → GET
 
 ---
 
-## 📸 Evidence
+##  Evidence
 
 ### 1. Admin Request
 ![Admin Request](./images/admin-valid-request.png)  
@@ -93,7 +93,7 @@ POST → GET
 
 ---
 
-## 📌 Proof of Concept (PoC)
+##  Proof of Concept (PoC)
 
 A restricted POST request returns:
 ```
@@ -106,7 +106,7 @@ This confirms that access control is improperly enforced based on the HTTP metho
 
 ---
 
-## 🚨 Impact
+##  Impact
 
 - Privilege escalation to administrator
 - Unauthorized access to restricted functionality
@@ -114,7 +114,7 @@ This confirms that access control is improperly enforced based on the HTTP metho
 
 ---
 
-## ⚠️ Root Cause
+##  Root Cause
 
 - Access control is enforced based on HTTP method only
 - Missing consistent authorization checks across different request methods
@@ -122,7 +122,7 @@ This confirms that access control is improperly enforced based on the HTTP metho
 
 ---
 
-## 🛠️ Mitigation
+##  Mitigation
 
 - Enforce server-side authorization checks for all request methods
 - Apply consistent access control regardless of HTTP method
@@ -130,7 +130,7 @@ This confirms that access control is improperly enforced based on the HTTP metho
 
 ---
 
-## 📊 Severity (CVSS Estimate)
+##  Severity (CVSS Estimate)
 
 **High (8.0 - 8.8)**  
 
@@ -141,12 +141,12 @@ AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:L
 
 ---
 
-## 🧠 Key Insight
+##  Key Insight
 
 > The application relies on HTTP method-based access control, allowing attackers to bypass restrictions by modifying the request method.
 
 ---
 
-## 🔗 References
+##  References
 
 - PortSwigger Web Security Academy
