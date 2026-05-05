@@ -1,6 +1,6 @@
-# 🔐 IDOR Leading to Password Disclosure
+#  IDOR Leading to Password Disclosure
 
-## 📌 Summary
+##  Summary
 During testing, I discovered an **Insecure Direct Object Reference (IDOR)** vulnerability in the account functionality.
 
 The application uses a user-controlled parameter (`id`) to retrieve account data without proper authorization checks.  
@@ -8,7 +8,7 @@ By modifying this parameter, it is possible to access other users' sensitive dat
 
 ---
 
-## 🧪 My Testing Approach
+##  My Testing Approach
 
 After logging in as a normal user (`wiener`), I started testing how the account functionality works.
 
@@ -27,20 +27,20 @@ This inconsistency led me to focus on **information disclosure instead of direct
 
 ---
 
-## 📌 Vulnerability Type
+##  Vulnerability Type
 - Broken Access Control (IDOR)
 - Sensitive Data Exposure
 
 ---
 
-## 📌 Affected Endpoint
+##  Affected Endpoint
 
 GET /my-account?id=<user>
 
 
 ---
 
-## 📌 Steps to Reproduce
+##  Steps to Reproduce
 
 1. Login using valid credentials:
 
@@ -63,7 +63,7 @@ id=administrator
 
 ---
 
-## 📸 Evidence
+##  Evidence
 
 ### 1. Normal Request
 ![Normal Request](https://raw.githubusercontent.com/SaraEmad211/Security-Writeups/main/PortSwigger/Access-Control/01-idor-password-disclosure/images/normal-request.png)
@@ -84,7 +84,7 @@ id=administrator
 ![Delete User](https://raw.githubusercontent.com/SaraEmad211/Security-Writeups/main/PortSwigger/Access-Control/01-idor-password-disclosure/images/delete-user.png)
 ---
 
-## 📌 Proof of Concept (PoC)
+##  Proof of Concept (PoC)
 
 After modifying the `id` parameter to `administrator`, the response contained:
 
@@ -97,7 +97,7 @@ This confirms that:
 
 ---
 
-## 🚨 Impact
+##  Impact
 
 - Disclosure of administrator password
 - Account takeover possibility
@@ -106,7 +106,7 @@ This confirms that:
 
 ---
 
-## ⚠️ Root Cause
+##  Root Cause
 
 - Missing authorization checks on user-controlled parameter (`id`)
 - Trusting client input to fetch sensitive data
@@ -114,7 +114,7 @@ This confirms that:
 
 ---
 
-## 🛠️ Mitigation
+##  Mitigation
 
 - Enforce server-side authorization checks
 - Ensure users can only access their own data
@@ -123,7 +123,7 @@ This confirms that:
 
 ---
 
-## 📊 Severity (CVSS Estimate)
+##  Severity (CVSS Estimate)
 
 **High (8.5 - 9.0)**  
 Due to:
@@ -132,7 +132,7 @@ Due to:
 
 ---
 
-## 🧠 Key Insight
+##  Key Insight
 
 The vulnerability highlights a critical design flaw:
 
