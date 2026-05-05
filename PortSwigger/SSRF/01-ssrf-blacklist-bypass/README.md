@@ -1,6 +1,6 @@
-# 🔓 SSRF with Blacklist-Based Input Filter
+#  SSRF with Blacklist-Based Input Filter
 
-## 📌 Summary
+##  Summary
 While testing the stock check functionality, I noticed that the application makes server-side requests based on user input.  
 This behavior led me to test for SSRF vulnerabilities.
 
@@ -8,7 +8,7 @@ The application attempts to block access to internal resources using a blacklist
 
 ---
 
-## 🧪 My Testing Approach
+##  My Testing Approach
 
 When I clicked "Check stock", I intercepted the request in Burp Suite and found the following parameter:
 
@@ -21,7 +21,7 @@ This indicated that the server is fetching the URL itself, which is a typical SS
 *Original request before exploitation.*
 
 
-### 🔹 Step 1 — Testing localhost access
+###  Step 1 — Testing localhost access
 
 I first tried changing the URL to:
 
@@ -36,7 +36,7 @@ The request was blocked.
 
 ---
 
-### 🔹 Step 2 — Bypassing IP filter
+###  Step 2 — Bypassing IP filter
 
 Since `127.0.0.1` was blocked, I tested alternative representations of localhost:
 
@@ -51,7 +51,7 @@ This time, the request was accepted.
 
 ---
 
-### 🔹 Step 3 — Accessing admin panel
+###  Step 3 — Accessing admin panel
 
 Next, I attempted to access the admin panel:
 
@@ -66,7 +66,7 @@ The request was blocked again.
 
 ---
 
-### 🔹 Step 4 — Bypassing path filter
+###  Step 4 — Bypassing path filter
 
 Since `/admin` was filtered, I tried encoding techniques.
 
@@ -83,7 +83,7 @@ This successfully bypassed the filter and gave access to the admin panel.
 
 ---
 
-### 🔹 Step 5 — Exploitation
+###  Step 5 — Exploitation
 
 From the admin panel, I was able to delete the user `carlos`, successfully solving the lab.
 ---
@@ -92,13 +92,13 @@ From the admin panel, I was able to delete the user `carlos`, successfully solvi
 
 ---
 
-## 📌 Vulnerability Type
+##  Vulnerability Type
 - Server-Side Request Forgery (SSRF)
 - Blacklist Bypass
 
 ---
 
-## 📌 Proof of Concept (PoC)
+##  Proof of Concept (PoC)
 
 By modifying the `stockApi` parameter to:
 
@@ -110,7 +110,7 @@ The server processes the request and returns the internal admin panel, confirmin
 
 ---
 
-## 🚨 Impact
+##  Impact
 
 - Access to internal services not exposed externally
 - Unauthorized access to admin functionality
@@ -118,7 +118,7 @@ The server processes the request and returns the internal admin panel, confirmin
 
 ---
 
-## ⚠️ Root Cause
+##  Root Cause
 
 - Reliance on blacklist-based filtering instead of proper validation
 - Failure to normalize and validate input before processing
@@ -126,7 +126,7 @@ The server processes the request and returns the internal admin panel, confirmin
 
 ---
 
-## 🛠️ Mitigation
+##  Mitigation
 
 - Use a strict allowlist of permitted domains
 - Block all internal IP ranges (127.0.0.0/8, localhost, etc.)
@@ -134,6 +134,6 @@ The server processes the request and returns the internal admin panel, confirmin
 
 ---
 
-## 🧠 Key Insight
+##  Key Insight
 
 > Blacklist-based defenses are unreliable. Attackers can bypass them using alternative IP formats and encoding techniques.
