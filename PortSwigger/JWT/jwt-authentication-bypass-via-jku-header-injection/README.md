@@ -50,9 +50,9 @@ The server denied access because the JWT belonged to a normal user.
 
 Image:
 
-```md
+
 ![Failed Admin Access](images/failed-admin-access.png)
-```
+
 
 ---
 
@@ -68,9 +68,9 @@ I generated a new RSA public/private key pair.
 
 Image:
 
-```md
+
 ![Generate RSA Key Pair](images/generate-rsa-keypair.png)
-```
+
 
 ---
 
@@ -84,9 +84,9 @@ Copy Public Key as JWK
 
 Image:
 
-```md
+
 ![Copy Public Key as JWK](images/copy-public-key-as-jwk.png)
-```
+
 
 ---
 
@@ -111,9 +111,9 @@ This allowed the vulnerable server to fetch attacker-controlled verification key
 
 Image:
 
-```md
+
 ![Upload Public JWK](images/upload-public-jwk.png)
-```
+
 
 ---
 
@@ -135,9 +135,9 @@ Example:
 
 Image:
 
-```md
+
 ![Add JKU and KID Header](images/add-jku-and-kid-header.png)
-```
+
 
 ---
 
@@ -157,9 +157,9 @@ to:
 
 Image:
 
-```md
+
 ![Modify JWT Sub Claim](images/modify-jwt-sub-claim.png)
-```
+
 
 ---
 
@@ -171,9 +171,9 @@ Because the server trusted the attacker-controlled `jku` URL, it fetched my publ
 
 Image:
 
-```md
+
 ![JWT Sign Token](images/jwt-sign-token.png)
-```
+
 
 ---
 
@@ -183,9 +183,9 @@ After sending the forged JWT, administrator access was granted successfully.
 
 Image:
 
-```md
+
 ![Admin Panel Access](images/admin-panel-access.png)
-```
+
 
 ---
 
@@ -199,9 +199,9 @@ Finally, the following endpoint was used to delete the target user:
 
 Image:
 
-```md
+
 ![Delete Carlos User](images/delete-carlos-user.png)
-```
+
 
 ---
 
