@@ -28,8 +28,7 @@ Using Burp Suite HTTP history, I noticed that the uploaded avatar was being acce
 
 ### Screenshot
 
-![original_request](images/avatar request.png)
-
+![original_request](images/avatar_request.png)
 ---
 
 ## Step 3 - Create a malicious PHP file
