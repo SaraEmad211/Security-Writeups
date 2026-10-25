@@ -35,9 +35,9 @@ whoami
 pwd
 ls -la
 ```
-
+![Level 0](images/image.png)
 ### 2. Enumeration
-
+![Level 0](images/image(1).png)
 The home directory contained a hidden directory named `.backup`.
 
 Relevant directory entry:
@@ -71,7 +71,7 @@ Searched the file for potentially relevant terms:
 ```bash
 grep -inE 'password|pass|secret|leviathan|login' .backup/bookmarks.html
 ```
-
+![Level 0](images/image(2).png)
 The search revealed a bookmark containing the next level's password.
 
 **Finding:** Sensitive information was exposed in a readable HTML bookmark file.
@@ -95,6 +95,7 @@ After connecting as `leviathan1`, listed the home directory:
 ```bash
 ls -la
 ```
+![Level 0](images/image(3).png)
 
 Found an executable named `check`:
 
@@ -111,6 +112,7 @@ Identified the file type:
 ```bash
 file check
 ```
+![Level 0](images/image(4).png)
 
 The output identified it as a 32-bit ELF executable with SUID enabled.
 
