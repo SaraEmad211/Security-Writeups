@@ -35,9 +35,9 @@ whoami
 pwd
 ls -la
 ```
-![Level 0](images/image.png)
+![Level 0-1](images/image.png)
 ### 2. Enumeration
-![Level 0](images/image(1).png)
+![Level 0-1](images/image%20(1).png)
 The home directory contained a hidden directory named `.backup`.
 
 Relevant directory entry:
@@ -71,13 +71,10 @@ Searched the file for potentially relevant terms:
 ```bash
 grep -inE 'password|pass|secret|leviathan|login' .backup/bookmarks.html
 ```
-![Level 0](images/image(2).png)
+![Level 0-1](images/image%20(2).png)
 The search revealed a bookmark containing the next level's password.
 
-**Finding:** Sensitive information was exposed in a readable HTML bookmark file.
-
-The credential is intentionally omitted from this public write-up.
-
+**Finding:** “password for leviathan1 is PiXaSWQqHq”
 ### 4. Result
 
 Used the discovered credential to authenticate as `leviathan1` over SSH.
@@ -95,7 +92,7 @@ After connecting as `leviathan1`, listed the home directory:
 ```bash
 ls -la
 ```
-![Level 0](images/image(3).png)
+![Level 1-2](images/image%20(3).png)
 
 Found an executable named `check`:
 
@@ -112,7 +109,6 @@ Identified the file type:
 ```bash
 file check
 ```
-![Level 0](images/image(4).png)
 
 The output identified it as a 32-bit ELF executable with SUID enabled.
 
@@ -121,6 +117,8 @@ Extracted readable strings:
 ```bash
 strings check
 ```
+![Level 1-2](images/image%20(4).png)
+
 
 Relevant strings included:
 
@@ -139,7 +137,7 @@ These strings suggested that the program accepted input, compared strings, and c
 ### 3. Dynamic Analysis
 
 Executed the program to observe its behavior:
-
+![Level 1-2](images/image%20(5).png)
 ```bash
 ./check
 ```
@@ -147,7 +145,7 @@ Executed the program to observe its behavior:
 An incorrect input produced a password error.
 
 Used `ltrace` to observe library calls:
-
+![Level 1-2](images/image%20(6).png)
 ```bash
 ltrace ./check
 ```
@@ -157,7 +155,7 @@ The trace showed a comparison similar to:
 ```text
 strcmp("hwl", "sex") = -1
 ```
-
+![Level 1-2](images/image%20(7).png)
 This indicated that the input read by the program was compared with the string `sex`.
 
 ### 4. Validation
