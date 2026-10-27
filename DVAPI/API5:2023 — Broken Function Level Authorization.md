@@ -4,29 +4,36 @@
 
 **Root Cause:** The API may expose sensitive functionality without properly checking whether the authenticated user has permission to perform the requested action.
 
-**Vulnerable Code (Illustrative):**
+**Vulnerable Code**
 ```javascript
-app.delete("/api/profiles/:id", async (req, res) => {
-  await deleteProfile(req.params.id);
-  res.sendStatus(204);
-});
+const user = req.params.username;
+
+if (user === 'admin') {
+  return res.status(403).json({
+    status: "error",
+    message: "Cannot delete admin"
+  });
+}
+
+const result = await User.deleteOne({ username: user });
 ```
 
 **Fixed Code (Illustrative):**
 ```javascript
-app.delete(
-  "/api/profiles/:id",
-  authenticateUser,
-  requireAdmin,
-  async (req, res) => {
-    await deleteProfile(req.params.id);
-    res.sendStatus(204);
-  }
-);
+const targetUsername = req.params.username;
+
+if (!req.user.isAdmin) {
+  return res.status(403).json({
+    status: "error",
+    message: "Forbidden"
+  });
+}
+
+const result = await User.deleteOne({
+  username: targetUsername
+});
 ```
 
 **Fix:** Enforce server-side authorization checks for sensitive functions and restrict administrative operations to authorized roles.
 
 **Key Takeaway:** Authentication alone is not enough; the API must verify that the user is authorized to perform each requested function.
-
-*Note: The code snippets are illustrative examples, not the challenge's original source code. The solve notes mention testing `OPTIONS` and `DELETE`, but do not confirm that an unauthorized deletion succeeded.*
