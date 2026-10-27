@@ -20,5 +20,3 @@ const notes = await db.notes.findMany({
 ```
 
 **Fix:** Use the authenticated user's identity instead of trusting a client-supplied username.
-
-**Key Takeaway:** Authentication identifies the user; authorization determines which resources they can access.
