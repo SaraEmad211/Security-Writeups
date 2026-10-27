@@ -4,7 +4,7 @@
 
 **Root Cause:** The API accepts user-supplied properties during registration without properly restricting which fields the client is allowed to set.
 
-**Vulnerable Code (Illustrative):**
+**Vulnerable Code**
 ```javascript
 const adduser = req.body;
 const newUser = new User(adduser);
